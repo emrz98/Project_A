@@ -1,0 +1,20 @@
+.list-group-mine .list-group-item{
+    background-color: yellow;
+    border-left-color: white;
+
+}
+
+.list-group-mine .list-group-item:hover{
+    background-color: red;
+
+}
+
+body{
+    background-color: white;
+
+}
+
+.margin-rows .row{
+    margin-top: 100%;
+
+}
