@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from team_management.models import resource_type
 def main_menu(request):
     data = {"template":"task.html"}
     tc = TestPersona("EmmanuelTC", "TC", ["A", "B", "C"])
@@ -7,6 +7,14 @@ def main_menu(request):
     data["tc"] = tc
     data["pm"] = pm
     print(data["pm"])
+    resource_type.objects.create(description_text = "TC")
+    new_resource = resource_type(description_text = "PM")
+    new_resource.save()
+    obj = resource_type.objects.all()
+    for i in obj:
+        print(i.date_created)
+        print(i.date_modified)
+
     return render(request, "main_menu.html", context=data)
 
 
