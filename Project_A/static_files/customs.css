@@ -1,5 +1,5 @@
 .list-group-mine .list-group-item{
-    background-color: yellow;
+    background-color: blue;
     border-left-color: white;
 
 }
@@ -14,7 +14,7 @@ body{
 
 }
 
-.margin-rows .row{
-    margin-top: 100%;
+.row{
+    margin-top: 20px;
 
 }

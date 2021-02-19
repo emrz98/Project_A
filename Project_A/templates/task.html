@@ -1,14 +1,59 @@
-<button type="button" class="btn btn-primary">Primary</button>
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'customs.css' %}">
+    <title>Document</title>
 
-<p>{{tc.nombre}}</p>
-<table>
-    <tr>
-        <th>
+    <style>
+        .row{
+          margin-top: 2%;
+        }
 
-        </th>
+    </style>
+</head>
+<body>
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="col-12 bg-dark">
+            {% include 'navbar.html'%}
+          </div>
+        </div>
 
-    </tr>
+        <div class="row">
+          <div class="col-3">
+            {% include 'sidebar.html'%}
+          </div>
+          <div class="col-9">
+                <h5 >{{resource}}</h5>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <th scope="col">Task</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End date</th>
+                  </thead>
+                  <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                      <td>{{task.main_title}}</th>
+                      <td>{{task.date_created}}</th>
+                      <td>{{task.end_date}}</th>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+          </div>
+      </div>
+        
+      </div>
 
-
-</table>
-<p>{{pm.nombre}}</p>
+      <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+      <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+      
+</body>
+</html>

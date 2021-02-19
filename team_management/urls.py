@@ -3,4 +3,4 @@ from . import views
 from django.conf.urls import url
 
 app_name = "team_management"
-urlpatterns = [path('menu/', views.main_menu, name = "menu")]
+urlpatterns = [path('task/', views.task, name = "task")]
