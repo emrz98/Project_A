@@ -14,7 +14,6 @@ body{
 
 }
 
-.margin-rows .row{
-    margin-top: 100%;
-
-}
+.margin-row{
+    margin-top: 2%;
+  }

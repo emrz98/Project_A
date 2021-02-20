@@ -1,0 +1,17 @@
+<h5 >{{resource}}</h5>
+<table class="table">
+  <thead class="thead-dark">
+    <th scope="col">Task</th>
+    <th scope="col">Start Date</th>
+    <th scope="col">End date</th>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <td>{{task.main_title}}</th>
+      <td>{{task.date_created}}</th>
+      <td>{{task.end_date}}</th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
