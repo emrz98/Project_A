@@ -6,7 +6,6 @@ class resource_type(models.Model):
     description_text = models.CharField(max_length=100)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
-
     def __str__(self):
         return self.description_text + " "+str(self.date_created)
 

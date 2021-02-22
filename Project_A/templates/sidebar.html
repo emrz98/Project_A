@@ -1,6 +1,17 @@
-<ul class="list-group list-group-mine">
-    <li class="list-group-item">All</li>
-    {% for name in resources_names %}
-    <li class="list-group-item">{{name}} <span class="badge badge-primary badge-pill">Active</span></li>
-    {% endfor %}
-</ul>
+
+    <ul class="list-group list-group-mine">
+        <form action="" method="GET">
+            {% csrf_token %}
+            {% for name in resources_names %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value={{name}} id={{name}} name = "people">
+                <label class="form-check-label" for={{name}} >
+                    {{name}}
+                </label>
+            </div>
+            
+            <!-- <li class="list-group-item" type="submit">{{name}} <span class="badge badge-primary badge-pill">Active</span></li> -->
+            {% endfor %}
+            <input type="submit" value="Search">
+        </form>
+    </ul>

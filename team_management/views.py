@@ -1,24 +1,38 @@
 from django.shortcuts import render
 from team_management.models import resource_type,resource, task as t
 from team_management.querys import *
+
+
+def calendar(request):
+    resources_names  = get_names_resources()
+    data = {"resources_names":resources_names, "element_nav":"calendar_nav"}
+    return render(request, "calendar.html", context=data)
+
+
 def task(request):
     # resource_type.objects.create(description_text = "TC")
     # new_resource = resource_type(description_text = "PM")
     # new_resource.save()
-    tasks_of_resource = t.objects.all()
-    tasks = tasks_of_resource.values()
-    resource_id = tasks[0]["idresource_id"]
+    if request.method == "GET":
+        resources_names = request.GET.getlist("people")
+        obj_resources = [resource.objects.filter(name = name).values() for name in resources_names]
+        ids_resources = [resource[0]["idresource"] for  resource in obj_resources]
+        tasks_per_resource ={}
+        for i in range(len(obj_resources)):
+            tasks  =t.objects.filter(idresource = ids_resources[i])
+            tasks_per_resource[resources_names[i]] = tasks       
+    
     resources_names  = get_names_resources()
-    resource_in_charge = resource.objects.filter(idresource = resource_id)[0]
+    data = {"resources_names":resources_names , "element_nav":"task_nav", "tasks": tasks_per_resource}
+    return render(request, "task.html", context=data)
 
-    data = {"template" : "task.html", "resources_names":resources_names , "tasks": tasks,"resource": resource_in_charge, }
-    return render(request, "main.html", context=data)
-
-def calendar(request):
+def projects(request):
     resources_names  = get_names_resources()
-    data = {"template": "calendar.html", "resources_names":resources_names}
-    return render(request, "main.html", context=data)
+    data = {"resources_names":resources_names, "element_nav":"projects_nav"}
+    return render(request, "projects.html", context=data)
 
 
-
-
+def details(request):
+    resources_names  = get_names_resources()
+    data = {"resources_names":resources_names, "element_nav":"details_nav"}
+    return render(request, "details.html", context=data)

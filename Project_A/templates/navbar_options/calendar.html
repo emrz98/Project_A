@@ -1,7 +1,20 @@
+<!DOCTYPE html>
 {% load static%}
-<link rel="stylesheet" href="{% static 'main.min.css' %}">
-<script src="{% static 'main.min.js' %}"></script>
-<script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'customs.css' %}">
+    <script src="{% static 'main.min.js' %}"></script>
+    <title>Team</title>
+
+
+</head>
+<body>
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
   
@@ -30,6 +43,31 @@
     });
   
   </script>
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="col-12 bg-dark">
+            {% include 'navbar.html'%}
+          </div>
+        </div>
 
+        <div class="row margin-row">
+          <div class="col-3">
+            {% include 'sidebar.html'%}
+          </div>
+          <div class="col-9">
+            <div id='calendar'></div>
+          </div>
+      </div>
+        
+      </div>
 
-<div id='calendar'></div>
+      <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+      <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+      <script>
+        if("{{element_nav}}" == "calendar_nav"){
+            document.getElementById("calendar-nav").classList.add("active");
+        }
+    </script>
+</body>
+</html>
