@@ -2,7 +2,6 @@ from django.shortcuts import render
 from team_management.models import resource_type,resource, task as t
 from team_management.querys import *
 
-
 def calendar(request):
     resources_names  = get_names_resources()
     data = {"resources_names":resources_names, "element_nav":"calendar_nav"}
@@ -15,12 +14,14 @@ def task(request):
     # new_resource.save()
     if request.method == "GET":
         resources_names = request.GET.getlist("people")
+        if("all" in resources_names):
+            resources_names = get_names_resources()        
         obj_resources = [resource.objects.filter(name = name).values() for name in resources_names]
         ids_resources = [resource[0]["idresource"] for  resource in obj_resources]
         tasks_per_resource ={}
         for i in range(len(obj_resources)):
             tasks  =t.objects.filter(idresource = ids_resources[i])
-            tasks_per_resource[resources_names[i]] = tasks       
+            tasks_per_resource[resources_names[i]] = tasks
     
     resources_names  = get_names_resources()
     data = {"resources_names":resources_names , "element_nav":"task_nav", "tasks": tasks_per_resource}
@@ -36,3 +37,8 @@ def details(request):
     resources_names  = get_names_resources()
     data = {"resources_names":resources_names, "element_nav":"details_nav"}
     return render(request, "details.html", context=data)
+
+
+# click en recurso y aparecen los proyectos 
+# projecto 
+
