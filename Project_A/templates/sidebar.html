@@ -1,33 +1,12 @@
-
-    <script type="text/javascript">
-        function check(elem){
-                var elem = document.getElementById(elem);
-                elem.click()
-        }
-    </script>
     <h3>Resources</h3>
-    <ul class="list-group list-group-mine">
-        
-        <form action="" method="GET">
+    <div class="list-group">
+        <form action="" method="GET" id = "search">
+          
             {% csrf_token %}
-            <li class="list-group-item" onclick="check('all')">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="all" id="all" name = "people">
-                    <label class="form-check-label" for="all" >
-                        All
-                    </label>
-                </div>
-            </li>
+                   <input class="list-group-item list-group-item-action" type="submit" value="All" id="All" name = "resource">
             {% for name in resources_names %}
-            <li class="list-group-item" onclick="check('{{name}}')">  
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value={{name}} id={{name}} name = "people">
-                    <label class="form-check-label" for={{name}} >
-                        {{name}}
-                    </label>
-                </div>
-                 <span class="badge badge-primary badge-pill">Active</span></li>
+                    <input class="list-group-item list-group-item-action" type="submit" value={{name}} id={{name}} name = "resource">
+                    <!-- <span class="badge badge-primary badge-pill">Active</span></li> -->
             {% endfor %}
-            <input type="submit" value="Search">
         </form>
-    </ul>
+    </div>

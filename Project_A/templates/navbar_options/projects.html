@@ -13,7 +13,6 @@
 </head>
 <body>
       <div class="container-fluid">
-        
         <div class="row">
           <div class="col-12 bg-dark">
             {% include 'navbar.html'%}
@@ -26,25 +25,37 @@
           </div>
           <div class="col-9">
             <h3>Project 1</h3>
-            <div class="card text-center">
-              <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Diagram</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="#">Details</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p class="card-text">Information</p>
-                <p class="card-text">Information</p>
-                <p class="card-text">Information</p>
-                <p class="card-text">Information</p>
-                <p class="card-text">Information</p>
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Project 1
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card text-center">
+                    <div class="card-header">
+                      <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#">Task</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Gant</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Gant</h5>
+                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            
           </div>
       </div>
         
@@ -52,10 +63,9 @@
 
       <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
       <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
-      <script>
-        if("{{element_nav}}" == "projects_nav"){
-            document.getElementById("projects-nav").classList.add("active");
-        }
+      <script type="text/javascript">
+        document.getElementById("projects-nav").classList.add("active");
+        document.getElementById("{{resource_selected}}").classList.add("active");
     </script>
 </body>
 </html>
