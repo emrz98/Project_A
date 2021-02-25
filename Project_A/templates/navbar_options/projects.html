@@ -24,17 +24,18 @@
             {% include 'sidebar.html'%}
           </div>
           <div class="col-9">
-            <h3>Project 1</h3>
+            
             <div class="accordion" id="accordionExample">
+              {% for project in projects_resource %}
               <div class="card">
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Project 1
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#{{project.description_without_space}}" aria-expanded="true" aria-controls="collapse">
+                      {{project.description_text}}
                     </button>
                   </h2>
                 </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="{{project.description_without_space}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card text-center">
                     <div class="card-header">
                       <ul class="nav nav-pills card-header-pills">
@@ -54,6 +55,7 @@
                   </div>
                 </div>
               </div>
+              {% endfor %}
             </div>
             
           </div>

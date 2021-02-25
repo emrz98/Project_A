@@ -102,6 +102,8 @@ class project_has_task(models.Model):
     idtask = models.ForeignKey(task, on_delete=models.DO_NOTHING)
     class Meta:
         unique_together = [['idproject','idtask']]
+    def __str__(self):
+        return "Project: "+ str(self.idproject) + "| Task: " +str(self.idtask)
 
 class task_has_comments(models.Model):
     idcomment = models.ForeignKey(comments, on_delete=models.DO_NOTHING)

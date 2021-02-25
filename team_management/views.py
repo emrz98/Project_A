@@ -2,11 +2,9 @@ from django.shortcuts import render
 from team_management.models import resource_type,resource, task as t
 from team_management.querys import *
 
-tc_names = get_names_tcs()
-pm_names = get_names_pms()
-print("lo hizo")
 
 def calendar(request):
+    print("This works")
     resources_names  = get_names_resources()
     data = {"resources_names":resources_names, "element_nav":"calendar_nav"}
     return render(request, "calendar.html", context=data)
@@ -31,10 +29,24 @@ def task(request):
     return render(request, "task.html", context=data)
 
 def projects(request):
+    projects_resource = None
     resources_names  = get_names_resources()
     if request.method == "GET":
         resource_selected = request.GET.get("resource")
-    data = {"resources_names":resources_names, "elements_nav":"projects_nav", "resource_selected":resource_selected}
+        if(resource_selected != None):
+            if(resource_selected == "All"):
+                projects_resource = get_projects_resource(get_names_resources()) #doesnt_works
+            else:
+                projects_resource = get_projects_resource(resource_selected)
+                print(resource_selected , " " , projects_resource)
+            for i in range(len(projects_resource)):
+                projects_resource[i]["description_without_space"] = "-".join(projects_resource[i]["description_text"].split()) 
+            print("Entro")
+            get_tasks_project_of_resource(resource_selected, "Project A")
+    data = {"resources_names":resources_names, 
+            "elements_nav":"projects_nav", 
+            "resource_selected":resource_selected, 
+            "projects_resource":projects_resource}
     return render(request, "projects.html", context=data)
 
 def details(request):
