@@ -7,6 +7,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'customs.css' %}">
+    <script type = "text/javascript" src="{% static 'loader.js' %}"></script>
+    <script type = "text/javascript">
+      google.charts.load('current', {'packages':['gantt']});
+      google.charts.setOnLoadCallback(allCharts);
+
+      function daysToMilliseconds(days) {
+        return days * 24 * 60 * 60 * 1000;
+      }
+      function allCharts(){
+        let dataProjects = JSON.parse('{{project_dic|safe}}');
+        for(var key in dataProjects){
+          drawChart(key, dataProjects);
+        }
+      }
+
+      function drawChart(key, dataProjects) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task ID');
+        data.addColumn('string', 'Task Name');
+        data.addColumn('date', 'Start Date');
+        data.addColumn('date', 'End Date');
+        data.addColumn('number', 'Duration');
+        data.addColumn('number', 'Percent Complete');
+        data.addColumn('string', 'Dependencies');
+        console.log(dataProjects[key]);
+        let rows = []; 
+        for(var col in dataProjects[key]){
+          rows.push([dataProjects[key][col]["main_title"],
+                      dataProjects[key][col]["main_title"], 
+                      new Date(dataProjects[key][col]["start_date"]), 
+                      new Date(dataProjects[key][col]["end_date"]),
+                      daysToMilliseconds(3), 
+                      25, 
+                      null]);
+        }
+        console.log(rows);
+        data.addRows(rows);
+        // data.addRows([
+        //   ['Research', 'Find sources',
+        //   new Date(2015, 0, 1), new Date(2015, 0, 5), null,  100,  null],
+        //   ['Write', 'Write paper',
+        //   null, new Date(2015, 0, 9), daysToMilliseconds(3), 25, 'Research,Outline'],
+        //   ['Cite', 'Create bibliography',
+        //   null, new Date(2015, 0, 7), daysToMilliseconds(1), 20, 'Research'],
+        //   ['Comple e', 'Hand in paper',
+        //   null, new Date(2015, 0, 10), daysToMilliseconds(1), 0, 'Cite,Write'],
+        //   ['Outline', 'Outline paper',
+        //   null, new Date(2015, 0, 6), daysToMilliseconds(1), 100, 'Research']
+        // ]);
+
+        var options = {
+          height: 275
+        };
+
+        var chart = new google.visualization.Gantt(document.getElementById(key +"-chart"));
+
+        chart.draw(data, options);
+      }
+    </script>
     <title>Team</title>
 
 
@@ -37,20 +96,31 @@
                 </div>
                 <div id="{{project.description_without_space}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card text-center">
-                    <div class="card-header">
-                      <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item">
-                          <a class="nav-link active" href="#">Task</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Gant</a>
-                        </li>
-                      </ul>
-                    </div>
                     <div class="card-body">
-                      <h5 class="card-title">Gant</h5>
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                      <div id="{{project.description_without_space}}-chart"></div>
+                    </div>
+                  </div>
+                  <div class="card text-center">
+                    <div class="card-body">
+                      <table class="table">
+                        <thead class="thead-dark">
+                          <th scope="col">Task</th>
+                          <th scope="col">Start Date</th>
+                          <th scope="col">End date</th>
+                        </thead>
+                        <tbody>
+                          {% for task in project.tasks%}
+                          <tr>
+                            <td>{{task.main_title}}</td>
+                            <td>{{task.date_created}}</th>
+                            <td>{{task.end_date}}</th>
+                            
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      
+
                     </div>
                   </div>
                 </div>
@@ -68,6 +138,8 @@
       <script type="text/javascript">
         document.getElementById("projects-nav").classList.add("active");
         document.getElementById("{{resource_selected}}").classList.add("active");
+       
+
     </script>
 </body>
 </html>

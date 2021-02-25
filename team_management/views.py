@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from team_management.models import resource_type,resource, task as t
-from team_management.querys import *
-
+from team_management.queries import *
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 def calendar(request):
     print("This works")
@@ -30,6 +31,7 @@ def task(request):
 
 def projects(request):
     projects_resource = None
+    project_dic = {}
     resources_names  = get_names_resources()
     if request.method == "GET":
         resource_selected = request.GET.get("resource")
@@ -38,20 +40,33 @@ def projects(request):
                 projects_resource = get_projects_resource(get_names_resources()) #doesnt_works
             else:
                 projects_resource = get_projects_resource(resource_selected)
-                print(resource_selected , " " , projects_resource)
+            
             for i in range(len(projects_resource)):
-                projects_resource[i]["description_without_space"] = "-".join(projects_resource[i]["description_text"].split()) 
-            print("Entro")
-            get_tasks_project_of_resource(resource_selected, "Project A")
+                projects_resource[i]["tasks"] = get_tasks_project_of_resource(resource_selected, projects_resource[i]["description_text"])
+                projects_resource[i]["description_without_space"] = "-".join(projects_resource[i]["description_text"].split())
+                project_dic[projects_resource[i]["description_without_space"]] = projects_resource[i]["tasks"]
+            project_dic = json.dumps(project_dic, cls = DjangoJSONEncoder)
     data = {"resources_names":resources_names, 
             "elements_nav":"projects_nav", 
             "resource_selected":resource_selected, 
-            "projects_resource":projects_resource}
+            "projects_resource":projects_resource,
+            "project_dic":project_dic}
     return render(request, "projects.html", context=data)
 
 def details(request):
     resources_names  = get_names_resources()
-    data = {"resources_names":resources_names, "element_nav":"details_nav"}
+    all_tasks = []
+    all_projects = []
+    if request.method == "GET":
+        resource_selected = request.GET.get("resource")
+        if(resource_selected != None):
+            all_tasks = get_all_tasks_resource(resource_selected)
+            all_projects = get_projects_resource(resource_selected)
+    data = {"resources_names":resources_names, 
+            "element_nav":"details_nav",
+            "resource_selected":resource_selected,
+            "tasks":all_tasks,
+            "projects":all_projects}
     return render(request, "details.html", context=data)
 
 

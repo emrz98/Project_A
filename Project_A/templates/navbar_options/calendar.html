@@ -10,14 +10,11 @@
     <link rel="stylesheet" href="{% static 'customs.css' %}">
     <script src="{% static 'main.min.js' %}"></script>
     <title>Team</title>
-
-
 </head>
 <body>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-  
       var calendar = new FullCalendar.Calendar(calendarEl, {
         displayEventTime: false,
         initialDate: '2021-02-21',
@@ -38,7 +35,10 @@
             bool ? 'block' : 'none';
         }
       });
-  
+      calendar.batchRendering(function() {
+      calendar.changeView('dayGridMonth');
+      calendar.addEvent({ title: 'new event', start: '2021-02-26' });
+      });
       calendar.render();
     });
   

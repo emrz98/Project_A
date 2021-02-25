@@ -65,9 +65,9 @@ def get_projects_resource(resource_name):
 def get_tasks_project_of_resource(resource_name ,project_description):
     all_task = get_all_tasks_resource(resource_name)
     id_project = project.objects.filter(description_text = project_description).values()[0]["idproject"]
-    tasks_project = project_has_task.objects.filter(idproject = id_project).values()
-    id_tasks_project =[task["idtask_id"] for task in tasks_project]
-    tasks_in_project = [task.objects.get(idtask = id_task) for id_task in id_tasks_project]
+    id_tasks_project =[has_task["idtask_id"] for has_task in project_has_task.objects.filter(idproject = id_project).values()]
+    task_source_project=[task for task in all_task if task["idtask"] in id_tasks_project]
+    return task_source_project
     
 def create_new_task():
     pass
