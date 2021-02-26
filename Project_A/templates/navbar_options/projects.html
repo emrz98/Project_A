@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'customs.css' %}">
     <script type = "text/javascript" src="{% static 'loader.js' %}"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+    <!-- Tempus Dominus Bootstrap 4 -->
+    
+    
     <script type = "text/javascript">
       google.charts.load('current', {'packages':['gantt']});
       google.charts.setOnLoadCallback(allCharts);
@@ -84,17 +94,18 @@
           </div>
           <div class="col-9">
             
-            <div class="accordion" id="accordionExample">
+            <div class="accordion" id="accordionProject">
               {% for project in projects_resource %}
+              
               <div class="card">
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#{{project.description_without_space}}" aria-expanded="true" aria-controls="collapse">
+                    <button id ="{{project.description_without_space}}-button"class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#{{project.description_without_space}}" aria-expanded="true" aria-controls="collapse">
                       {{project.description_text}}
                     </button>
                   </h2>
                 </div>
-                <div id="{{project.description_without_space}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="{{project.description_without_space}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionProject">
                   <div class="card text-center">
                     <div class="card-body">
                       <div id="{{project.description_without_space}}-chart"></div>
@@ -102,6 +113,7 @@
                   </div>
                   <div class="card text-center">
                     <div class="card-body">
+                      {% include 'new-task.html'%}
                       <table class="table">
                         <thead class="thead-dark">
                           <th scope="col">Task</th>
@@ -124,6 +136,7 @@
                     </div>
                   </div>
                 </div>
+                
               </div>
               {% endfor %}
             </div>
@@ -138,8 +151,11 @@
       <script type="text/javascript">
         document.getElementById("projects-nav").classList.add("active");
         document.getElementById("{{resource_selected}}").classList.add("active");
-       
-
+        $(function () {
+          $("#datetimepicker1").datetimepicker();
+        });
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
 </body>
 </html>

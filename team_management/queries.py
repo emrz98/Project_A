@@ -12,8 +12,6 @@ get_type_resources_names(): This function return the names of all the resources 
 
 '''
 
-
-
 def get_names_resources():
     '''
     This function return the names of all the resources in the database

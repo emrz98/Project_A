@@ -1,0 +1,74 @@
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#TaskModal" data-whatever="Your name">New Task</button>
+
+<div class="modal fade" id="TaskModal" tabindex="-1" role="dialog" aria-labelledby="TaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="TaskModalLabel">Create new task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="POST" id = "search">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-group">
+                  <label class="my-1 mr-2" for="{{project.description_without_space}}-task-resource">Resource</label>
+                  <select class="custom-select my-1 mr-sm-2" id="{{project.description_without_space}}-task-resource">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="my-1 mr-2" for="{{project.description_without_space}}-task-type">Task Type</label>
+                  <select class="custom-select my-1 mr-sm-2" id="{{project.description_without_space}}-task-type">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="my-1 mr-2" for="{{project.description_without_space}}-task-status">Task Status</label>
+                  <select class="custom-select my-1 mr-sm-2" id="{{project.description_without_space}}-task-status">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Task description</label>
+                  <input type="text" class="form-control" id="message-text">
+                </div>
+                <div class="form-group">
+                  <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <label class="my-1 mr-2" for="date">Start date</label>
+                      <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="date"/>
+                      <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group date col-form-label" id="datetimepicker1" data-target-input="nearest">
+                    <label class="my-1 mr-2" for="date">End date</label>
+                      <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="date" />
+                      <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
